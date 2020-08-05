@@ -6,22 +6,23 @@ import 'package:keicy_cupertino_indicator/keicy_cupertino_indicator.dart';
 
 @immutable
 class KeicyNetworkImage extends StatelessWidget {
-  const KeicyNetworkImage(
-      {Key key,
-      @required this.url,
-      @required this.width,
-      @required this.height,
-      this.boxFit = BoxFit.cover,
-      this.errorTextColor = Colors.blue,
-      this.errorTextFontSize = 15.0,
-      this.borderColor = Colors.white,
-      this.borderWidth = 0,
-      this.borderRadius = 0.0,
-      this.brightness = Brightness.light,
-      this.loadingWidget,
-      this.errorWidget,
-      this.color})
-      : super(key: key);
+  const KeicyNetworkImage({
+    Key key,
+    @required this.url,
+    @required this.width,
+    @required this.height,
+    this.boxFit = BoxFit.cover,
+    this.errorTextColor = Colors.blue,
+    this.errorTextFontSize = 15.0,
+    this.borderColor = Colors.white,
+    this.borderWidth = 0,
+    this.borderRadius = 0.0,
+    this.brightness = Brightness.light,
+    this.loadingWidget,
+    this.errorWidget,
+    this.color,
+    this.colorBlendMode,
+  }) : super(key: key);
   final String url;
   final double width;
   final double height;
@@ -35,6 +36,7 @@ class KeicyNetworkImage extends StatelessWidget {
   final Widget loadingWidget;
   final Widget errorWidget;
   final Color color;
+  final BlendMode colorBlendMode;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,7 @@ class KeicyNetworkImage extends StatelessWidget {
               height: height,
               fit: boxFit,
               color: color,
+              colorBlendMode: colorBlendMode,
               loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
                 if (loadingProgress == null) return child;
                 return loadingWidget ??
