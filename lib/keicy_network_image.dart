@@ -36,68 +36,83 @@ class KeicyNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (url != "" && url != null) {
-      return Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          border: Border.all(color: borderColor, width: borderWidth),
-          borderRadius: BorderRadius.circular(double.parse(borderRadius.toString())),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(double.parse(borderRadius.toString())),
-          child: Image.network(
-            url,
+    try {
+      if (url != "" && url != null) {
+        return Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            border: Border.all(color: borderColor, width: borderWidth),
+            borderRadius: BorderRadius.circular(double.parse(borderRadius.toString())),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(double.parse(borderRadius.toString())),
+            child: Image.network(
+              url,
+              width: width,
+              height: height,
+              fit: boxFit,
+              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
+                if (loadingProgress == null) return child;
+                return loadingWidget ??
+                    Container(
+                      width: width,
+                      height: height,
+                      child: Center(
+                        child: KeicyCupertinoIndicator(
+                          size: height / 5,
+                          brightness: brightness,
+                        ),
+                      ),
+                    );
+              },
+              errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                return errorWidget ??
+                    Container(
+                      width: width,
+                      height: height,
+                      child: Center(
+                        child: Icon(
+                          Icons.not_interested,
+                          size: height / 2,
+                          color: errorTextColor,
+                        ),
+                      ),
+                    );
+              },
+            ),
+          ),
+        );
+      } else {
+        return Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            border: Border.all(color: borderColor, width: borderWidth),
+            borderRadius: BorderRadius.circular(double.parse(borderRadius.toString())),
+          ),
+          child: Center(
+            child: Icon(
+              Icons.not_interested,
+              size: height / 2,
+              color: errorTextColor,
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      return errorWidget ??
+          Container(
             width: width,
             height: height,
-            fit: boxFit,
-            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
-              if (loadingProgress == null) return child;
-              return loadingWidget ??
-                  Container(
-                    width: width,
-                    height: height,
-                    child: Center(
-                      child: KeicyCupertinoIndicator(
-                        size: height / 5,
-                        brightness: brightness,
-                      ),
-                    ),
-                  );
-            },
-            errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-              return errorWidget ??
-                  Container(
-                    width: width,
-                    height: height,
-                    child: Center(
-                      child: Icon(
-                        Icons.not_interested,
-                        size: height / 2,
-                        color: errorTextColor,
-                      ),
-                    ),
-                  );
-            },
-          ),
-        ),
-      );
-    } else {
-      return Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          border: Border.all(color: borderColor, width: borderWidth),
-          borderRadius: BorderRadius.circular(double.parse(borderRadius.toString())),
-        ),
-        child: Center(
-          child: Icon(
-            Icons.not_interested,
-            size: height / 2,
-            color: errorTextColor,
-          ),
-        ),
-      );
+            child: Center(
+              child: Icon(
+                Icons.not_interested,
+                size: height / 2,
+                color: errorTextColor,
+              ),
+            ),
+          );
     }
   }
 }
