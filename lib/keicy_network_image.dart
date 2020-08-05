@@ -18,6 +18,8 @@ class KeicyNetworkImage extends StatelessWidget {
     this.borderWidth = 0,
     this.borderRadius = 0.0,
     this.brightness = Brightness.light,
+    this.loadingWidget,
+    this.errorWidget,
   }) : super(key: key);
   final String url;
   final double width;
@@ -29,6 +31,8 @@ class KeicyNetworkImage extends StatelessWidget {
   final double borderWidth;
   final double borderRadius;
   final Brightness brightness;
+  final Widget loadingWidget;
+  final Widget errorWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -49,29 +53,31 @@ class KeicyNetworkImage extends StatelessWidget {
             fit: boxFit,
             loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
               if (loadingProgress == null) return child;
-              return Container(
-                width: width,
-                height: height,
-                child: Center(
-                  child: KeicyCupertinoIndicator(
-                    size: height / 5,
-                    brightness: brightness,
-                  ),
-                ),
-              );
+              return loadingWidget ??
+                  Container(
+                    width: width,
+                    height: height,
+                    child: Center(
+                      child: KeicyCupertinoIndicator(
+                        size: height / 5,
+                        brightness: brightness,
+                      ),
+                    ),
+                  );
             },
             errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-              return Container(
-                width: width,
-                height: height,
-                child: Center(
-                  child: Icon(
-                    Icons.not_interested,
-                    size: height / 2,
-                    color: errorTextColor,
-                  ),
-                ),
-              );
+              return errorWidget ??
+                  Container(
+                    width: width,
+                    height: height,
+                    child: Center(
+                      child: Icon(
+                        Icons.not_interested,
+                        size: height / 2,
+                        color: errorTextColor,
+                      ),
+                    ),
+                  );
             },
           ),
         ),
