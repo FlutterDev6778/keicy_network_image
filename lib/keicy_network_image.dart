@@ -84,21 +84,22 @@ class KeicyNetworkImage extends StatelessWidget {
           ),
         );
       } else {
-        return Container(
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            border: Border.all(color: borderColor, width: borderWidth),
-            borderRadius: BorderRadius.circular(double.parse(borderRadius.toString())),
-          ),
-          child: Center(
-            child: Icon(
-              Icons.not_interested,
-              size: height / 2,
-              color: errorTextColor,
-            ),
-          ),
-        );
+        return errorWidget ??
+            Container(
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                border: Border.all(color: borderColor, width: borderWidth),
+                borderRadius: BorderRadius.circular(double.parse(borderRadius.toString())),
+              ),
+              child: Center(
+                child: Icon(
+                  Icons.not_interested,
+                  size: height / 2,
+                  color: errorTextColor,
+                ),
+              ),
+            );
       }
     } catch (e) {
       return errorWidget ??
