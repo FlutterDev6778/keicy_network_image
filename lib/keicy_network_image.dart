@@ -58,6 +58,9 @@ class KeicyNetworkImage extends StatelessWidget {
               fit: boxFit,
               color: color,
               colorBlendMode: colorBlendMode,
+              filterQuality: FilterQuality.low,
+              cacheWidth: width ~/ 2,
+              cacheHeight: height ~/ 2,
               loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
                 if (loadingProgress == null) return child;
                 return loadingWidget ??
