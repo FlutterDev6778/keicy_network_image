@@ -6,7 +6,7 @@ import 'package:keicy_cupertino_indicator/keicy_cupertino_indicator.dart';
 
 @immutable
 class KeicyNetworkImage extends StatelessWidget {
-  const KeicyNetworkImage({
+  KeicyNetworkImage({
     Key key,
     @required this.url,
     @required this.width,
@@ -22,6 +22,7 @@ class KeicyNetworkImage extends StatelessWidget {
     this.errorWidget,
     this.color,
     this.colorBlendMode,
+    this.indicatorSize,
   }) : super(key: key);
   final String url;
   final double width;
@@ -37,9 +38,11 @@ class KeicyNetworkImage extends StatelessWidget {
   final Widget errorWidget;
   final Color color;
   final BlendMode colorBlendMode;
+  double indicatorSize;
 
   @override
   Widget build(BuildContext context) {
+    if (indicatorSize == null) indicatorSize = (height != null) ? height / 5 : (width != null) ? height / 5 : 20;
     try {
       if (url != "" && url != null) {
         return Container(
@@ -67,7 +70,7 @@ class KeicyNetworkImage extends StatelessWidget {
                       height: height,
                       child: Center(
                         child: KeicyCupertinoIndicator(
-                          size: height / 5,
+                          size: indicatorSize,
                           brightness: brightness,
                         ),
                       ),
@@ -81,7 +84,7 @@ class KeicyNetworkImage extends StatelessWidget {
                       child: Center(
                         child: Icon(
                           Icons.not_interested,
-                          size: height / 2,
+                          size: indicatorSize,
                           color: errorTextColor,
                         ),
                       ),
@@ -102,7 +105,7 @@ class KeicyNetworkImage extends StatelessWidget {
               child: Center(
                 child: Icon(
                   Icons.not_interested,
-                  size: height / 2,
+                  size: indicatorSize,
                   color: errorTextColor,
                 ),
               ),
@@ -116,7 +119,7 @@ class KeicyNetworkImage extends StatelessWidget {
             child: Center(
               child: Icon(
                 Icons.not_interested,
-                size: height / 2,
+                size: indicatorSize,
                 color: errorTextColor,
               ),
             ),
