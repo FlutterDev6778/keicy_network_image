@@ -42,7 +42,7 @@ class KeicyNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (indicatorSize == null) indicatorSize = (height != null) ? height / 5 : (width != null) ? height / 5 : 20;
+    if (indicatorSize == null) indicatorSize = (height != null) ? height / 5 : (width != null) ? width / 5 : 20;
     try {
       if (url != "" && url != null) {
         return Container(
