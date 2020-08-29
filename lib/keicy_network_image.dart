@@ -64,31 +64,31 @@ class KeicyNetworkImage extends StatelessWidget {
               filterQuality: FilterQuality.low,
               loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress) {
                 if (loadingProgress == null) return child;
-                return loadingWidget ??
-                    Container(
-                      width: width,
-                      height: height,
-                      child: Center(
-                        child: KeicyCupertinoIndicator(
+                return Container(
+                  width: width,
+                  height: height,
+                  child: Center(
+                    child: loadingWidget ??
+                        KeicyCupertinoIndicator(
                           size: indicatorSize,
                           brightness: brightness,
                         ),
-                      ),
-                    );
+                  ),
+                );
               },
               errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                return errorWidget ??
-                    Container(
-                      width: width,
-                      height: height,
-                      child: Center(
-                        child: Icon(
+                return Container(
+                  width: width,
+                  height: height,
+                  child: Center(
+                    child: errorWidget ??
+                        Icon(
                           Icons.not_interested,
                           size: indicatorSize,
                           color: errorTextColor,
                         ),
-                      ),
-                    );
+                  ),
+                );
               },
             ),
           ),
