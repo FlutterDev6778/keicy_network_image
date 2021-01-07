@@ -14,7 +14,7 @@ class KeicyNetworkImage extends StatelessWidget {
     this.boxFit = BoxFit.cover,
     this.errorTextColor = Colors.blue,
     this.errorTextFontSize = 15.0,
-    this.borderColor = Colors.white,
+    this.borderColor = Colors.transparent,
     this.borderWidth = 0,
     this.borderRadius = 0.0,
     this.brightness = Brightness.light,
